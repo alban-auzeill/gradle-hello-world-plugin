@@ -1,6 +1,7 @@
 plugins {
     `java-gradle-plugin`
     id("com.gradle.plugin-publish") version "1.2.1"
+    signing
 }
 
 repositories {
@@ -22,12 +23,14 @@ version = "1.0"
 gradlePlugin {
     website = "https://github.com/alban-auzeill/gradle-hello-world-plugin"
     vcsUrl = "https://github.com/alban-auzeill/gradle-hello-world-plugin"
-    val greeting by plugins.creating {
-        id = "com.auzeill.gradle.greeting"
-        implementationClass = "com.auzeill.gradle.GradleHelloWorldPluginPlugin"
-        displayName = "Hello World Gradle Plugin"
-        description = "A plugin to test the publication to Gradle Plugin Portal"
-        tags = listOf("hello", "world", "greeting")
+    plugins {
+        create("greetingPlugin") {
+            id = "com.auzeill.gradle.greeting"
+            implementationClass = "com.auzeill.gradle.GradleHelloWorldPluginPlugin"
+            displayName = "Hello World Gradle Plugin"
+            description = "A plugin to test the publication to Gradle Plugin Portal"
+            tags = listOf("hello", "world", "greeting")
+        }
     }
 }
 
